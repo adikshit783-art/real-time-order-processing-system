@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>OrderApp - Real-Time Order Processing</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+
+    <div class="logo">
+        Order<span>App</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a th:href="@{/}">Home</a>
+        </li>
+
+        <li>
+            <a th:href="@{/products}">Products</a>
+        </li>
+
+        <li>
+            <a th:href="@{/orders}">Orders</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Real-Time
+            <span>Order Processing</span>
+        </h1>
+
+        <p>
+            A Java Spring Boot e-commerce application
+            powered by MySQL, JPA and Apache Kafka for
+            asynchronous order processing.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a th:href="@{/products}"
+               class="btn btn-primary">
+                Browse Products
+            </a>
+
+            <a th:href="@{/orders}"
+               class="btn btn-light">
+                View Orders
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-card">
+
+        <h3>Technology Stack</h3>
+
+        <div class="tech-item">
+            ☕ Java + Spring Boot
+        </div>
+
+        <div class="tech-item">
+            🗄️ MySQL + Spring Data JPA
+        </div>
+
+        <div class="tech-item">
+            ⚡ Apache Kafka
+        </div>
+
+        <div class="tech-item">
+            🌐 Spring MVC + Thymeleaf
+        </div>
+
+        <div class="tech-item">
+            📦 Maven
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+<section class="section">
+
+    <div class="section-title">
+
+        <h2>How OrderApp Works</h2>
+
+        <p>
+            Simple order creation with asynchronous Kafka processing.
+        </p>
+
+    </div>
+
+
+    <div class="card-grid">
+
+        <div class="card">
+
+            <h3>🛒 Create Order</h3>
+
+            <p>
+                Customers select products and create
+                an order through the web interface.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>💾 Store Order</h3>
+
+            <p>
+                Spring Data JPA stores the order and
+                product information in MySQL.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>📨 Kafka Event</h3>
+
+            <p>
+                The application publishes an order-created
+                event to Apache Kafka.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>⚙️ Process Order</h3>
+
+            <p>
+                The Kafka consumer receives the event
+                and updates the order status.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <p>
+        OrderApp © 2026 | Java Spring Boot + Apache Kafka
+    </p>
+
+</footer>
+
+</body>
+
+</html>

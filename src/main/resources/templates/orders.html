@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Orders - OrderApp</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        Order<span>App</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a th:href="@{/}">Home</a>
+        </li>
+
+        <li>
+            <a th:href="@{/products}">Products</a>
+        </li>
+
+        <li>
+            <a th:href="@{/orders}">Orders</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- ================= PAGE HEADER ================= -->
+
+<section class="page-header">
+
+    <h1>Order Dashboard</h1>
+
+    <p>
+        Track your orders and their processing status.
+    </p>
+
+</section>
+
+
+<!-- ================= ORDERS ================= -->
+
+<section class="section">
+
+    <div class="orders-top">
+
+        <div>
+
+            <h2>All Orders</h2>
+
+            <p class="orders-subtitle">
+                Orders are processed asynchronously using Apache Kafka.
+            </p>
+
+        </div>
+
+        <a th:href="@{/orders/new}"
+           class="btn btn-primary">
+
+            + Create New Order
+
+        </a>
+
+    </div>
+
+
+    <!-- ================= ORDER CARDS ================= -->
+
+    <div class="orders-grid">
+
+        <div class="order-card"
+             th:each="order : ${orders}">
+
+            <!-- HEADER -->
+
+            <div class="order-card-header">
+
+                <div>
+
+                    <span class="order-label">
+                        ORDER
+                    </span>
+
+                    <h3>
+                        #<span th:text="${order.id}">
+                            1
+                        </span>
+                    </h3>
+
+                </div>
+
+
+                <!-- PROCESSING -->
+
+                <span class="status status-processing"
+                      th:if="${order.status == 'PROCESSING'}">
+
+                    ● PROCESSING
+
+                </span>
+
+
+                <!-- CREATED -->
+
+                <span class="status status-created"
+                      th:if="${order.status == 'CREATED'}">
+
+                    ● CREATED
+
+                </span>
+
+
+                <!-- OTHER STATUS -->
+
+                <span class="status status-created"
+                      th:if="${order.status != 'PROCESSING'
+                      and order.status != 'CREATED'}"
+                      th:text="${order.status}">
+
+                    STATUS
+
+                </span>
+
+            </div>
+
+
+            <!-- ORDER INFORMATION -->
+
+            <div class="order-info">
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Customer
+                    </span>
+
+                    <strong th:text="${order.user.name}">
+                        Abhishek
+                    </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Total Amount
+                    </span>
+
+                    <strong class="order-price">
+
+                        ₹<span th:text="${order.totalAmount}">
+                            49999
+                        </span>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Created At
+                    </span>
+
+                    <strong th:text="${order.createdAt}">
+                        2026-09-29
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= KAFKA FLOW ================= -->
+
+            <div class="order-flow">
+
+
+                <div class="flow-step completed">
+
+                    <div class="flow-circle">
+                        ✓
+                    </div>
+
+                    <span>
+                        Created
+                    </span>
+
+                </div>
+
+
+                <div class="flow-line"></div>
+
+
+                <div class="flow-step"
+                     th:classappend="${order.status == 'PROCESSING'}
+                     ? ' completed' : ''">
+
+                    <div class="flow-circle">
+                        ⚡
+                    </div>
+
+                    <span>
+                        Kafka
+                    </span>
+
+                </div>
+
+
+                <div class="flow-line"></div>
+
+
+                <div class="flow-step"
+                     th:classappend="${order.status == 'PROCESSING'}
+                     ? ' completed' : ''">
+
+                    <div class="flow-circle">
+                        ✓
+                    </div>
+
+                    <span>
+                        Processing
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= EMPTY ORDERS ================= -->
+
+    <div class="empty-orders"
+         th:if="${#lists.isEmpty(orders)}">
+
+        <div class="empty-icon">
+            📦
+        </div>
+
+        <h3>No Orders Yet</h3>
+
+        <p>
+            Create your first order to see it here.
+        </p>
+
+        <a th:href="@{/orders/new}"
+           class="btn btn-primary">
+
+            Create Order
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <p>
+        OrderApp © 2026 | Spring Boot + MySQL + Apache Kafka
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

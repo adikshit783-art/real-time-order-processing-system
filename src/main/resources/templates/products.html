@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Products - OrderApp</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        Order<span>App</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a th:href="@{/}">Home</a>
+        </li>
+
+        <li>
+            <a th:href="@{/products}">Products</a>
+        </li>
+
+        <li>
+            <a th:href="@{/orders}">Orders</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- ================= PAGE HEADER ================= -->
+
+<section class="page-header">
+
+    <h1>Products</h1>
+
+    <p>
+        Browse available products and create your order.
+    </p>
+
+</section>
+
+
+<!-- ================= PRODUCTS SECTION ================= -->
+
+<section class="section">
+
+    <div class="products-top">
+
+        <div>
+
+            <h2>Our Products</h2>
+
+            <p class="products-subtitle">
+                Choose a product and place your order.
+            </p>
+
+        </div>
+
+        <a th:href="@{/products/new}"
+           class="btn btn-primary">
+
+            + Add New Product
+
+        </a>
+
+    </div>
+
+
+    <!-- PRODUCT GRID -->
+
+    <div class="product-grid">
+
+        <div class="product-card"
+             th:each="product : ${products}">
+
+            <!-- PRODUCT ICON -->
+
+            <div class="product-image">
+                💻
+            </div>
+
+
+            <!-- PRODUCT INFORMATION -->
+
+            <h3 th:text="${product.name}">
+                Laptop
+            </h3>
+
+            <p class="product-description"
+               th:text="${product.description}">
+                Dell Laptop
+            </p>
+
+
+            <div class="price">
+
+                ₹<span th:text="${product.price}">
+                    49999
+                </span>
+
+            </div>
+
+
+            <!-- STOCK -->
+
+            <div class="stock"
+                 th:if="${product.quantity > 0}">
+
+                ● <span th:text="${product.quantity}">
+                    10
+                </span>
+                items available
+
+            </div>
+
+
+            <div class="stock-out"
+                 th:if="${product.quantity == 0}">
+
+                ● Out of stock
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="product-actions">
+
+                <!-- BUY -->
+
+                <a th:if="${product.quantity > 0}"
+                   th:href="@{/orders/new}"
+                   class="btn btn-primary buy-btn">
+
+                    Buy Now
+
+                </a>
+
+
+                <!-- OUT OF STOCK -->
+
+                <button th:if="${product.quantity == 0}"
+                        class="btn btn-disabled"
+                        disabled>
+
+                    Out of Stock
+
+                </button>
+
+
+                <!-- DELETE -->
+
+                <a th:href="@{/products/delete/{id}(id=${product.id})}"
+                   class="delete-btn"
+                   onclick="return confirm('Are you sure you want to delete this product?');">
+
+                    Delete
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- EMPTY PRODUCTS -->
+
+    <div class="empty-products"
+         th:if="${#lists.isEmpty(products)}">
+
+        <div class="empty-icon">
+            📦
+        </div>
+
+        <h3>No Products Available</h3>
+
+        <p>
+            Add your first product to start creating orders.
+        </p>
+
+        <a th:href="@{/products/new}"
+           class="btn btn-primary">
+
+            Add Product
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <p>
+        OrderApp © 2026 | Real-Time Order Processing
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

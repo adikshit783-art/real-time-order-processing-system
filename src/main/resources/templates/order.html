@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Order - OrderApp</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        Order<span>App</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a th:href="@{/}">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/products}">
+                Products
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/orders}">
+                Orders
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- ================= HEADER ================= -->
+
+<section class="page-header">
+
+    <h1>Create New Order</h1>
+
+    <p>
+        Select a customer, product and quantity.
+    </p>
+
+</section>
+
+
+<!-- ================= FORM ================= -->
+
+<section class="section">
+
+    <div class="form-container">
+
+        <div class="form-title">
+
+            <h2>Order Details</h2>
+
+            <p>
+                Create an order and send it for processing.
+            </p>
+
+        </div>
+
+
+        <form action="/orders/create"
+              method="post">
+
+
+            <!-- CUSTOMER -->
+
+            <div class="form-group">
+
+                <label for="userId">
+                    Customer
+                </label>
+
+                <select id="userId"
+                        name="userId"
+                        required>
+
+                    <option value="">
+                        Select Customer
+                    </option>
+
+                    <option
+                            th:each="user : ${users}"
+                            th:value="${user.id}"
+                            th:text="${user.name + ' (' + user.email + ')'}">
+
+                        Abhishek
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- PRODUCT -->
+
+            <div class="form-group">
+
+                <label for="productId">
+                    Product
+                </label>
+
+                <select id="productId"
+                        name="productId"
+                        required>
+
+                    <option value="">
+                        Select Product
+                    </option>
+
+                    <option
+                            th:each="product : ${products}"
+                            th:value="${product.id}"
+                            th:text="${product.name + ' — ₹' + product.price + ' | Stock: ' + product.quantity}">
+
+                        Laptop
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- QUANTITY -->
+
+            <div class="form-group">
+
+                <label for="quantity">
+                    Quantity
+                </label>
+
+                <input
+                        type="number"
+                        id="quantity"
+                        name="quantity"
+                        min="1"
+                        value="1"
+                        required>
+
+                <small>
+                    Enter the quantity you want to purchase.
+                </small>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="form-buttons">
+
+                <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                    Place Order
+
+                </button>
+
+
+                <a
+                        th:href="@{/orders}"
+                        class="btn btn-light">
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <p>
+        OrderApp © 2026 | Spring Boot + MySQL + Apache Kafka
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>
